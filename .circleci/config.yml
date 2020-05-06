@@ -9,10 +9,10 @@ jobs:
       - checkout
       - node/with-cache:
           steps:
-            - run: cd ..
+            - run: cd ../..
             - run: sudo apt-get install tree -y
             - run: pwd
-            - run: tree . -l 3
+            - run: tree . -l 4
             - run: npm install
             - run: npm test
 workflows:
