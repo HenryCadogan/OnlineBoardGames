@@ -3,9 +3,9 @@ orbs:
   node: circleci/node@1.1.6
 jobs:
   build-and-test:
-    working_directory: ./onlineboardgamesui
     executor:
       name: node/default
+      working_directory: ./onlineboardgamesui
     steps:
       - checkout
       - node/with-cache:
