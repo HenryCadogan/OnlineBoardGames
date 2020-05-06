@@ -9,11 +9,10 @@ jobs:
       - checkout
       - node/with-cache:
           steps:
-            - run: cd ../..
             - run: sudo apt-get install tree -y
             - run: pwd
             - run: tree . -l 4
-            - run: npm install
+            - run: cd onlineboardgamesui && npm install
             - run: npm test
 workflows:
     build-and-test:
