@@ -13,7 +13,7 @@ jobs:
             - run: pwd
             - run: tree . -l 4
             - run: cd onlineboardgamesui && npm install
-            - run: npm test
+            - run: cd onlineboardgamesui && npm test
 workflows:
     build-and-test:
       jobs:
