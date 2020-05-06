@@ -3,13 +3,11 @@ orbs:
   node: circleci/node@1.1.6
 jobs:
   build-and-test:
-    working_directory: ~/onlineboardgames/onlineboardgamesui
     executor:
       name: node/default
     steps:
       - checkout:
-        - path: ~/onlineboardgames
-      - node/with-cache:
+      - node:
           steps:
             - run: pwd
             - run: ls -al
@@ -19,4 +17,5 @@ jobs:
 workflows:
     build-and-test:
       jobs:
-        - build-and-test
+        - build-and-test:
+          working_directory: ~/onlineboardgames
