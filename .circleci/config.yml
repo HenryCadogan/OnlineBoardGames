@@ -2,8 +2,8 @@ version: 2.1
 orbs:
   node: circleci/node@1.1.6
 jobs:
-  working_directory: ./onlineboardgamesui
   build-and-test:
+    working_directory: ./onlineboardgamesui
     executor:
       name: node/default
     steps:
