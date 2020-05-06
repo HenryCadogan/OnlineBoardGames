@@ -6,7 +6,7 @@ jobs:
     executor:
       name: node/default
     steps:
-      - checkout:
+      - checkout
       - node:
           steps:
             - run: sudo apt-get install tree -y
