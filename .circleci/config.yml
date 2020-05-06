@@ -9,13 +9,11 @@ jobs:
       - checkout:
       - node:
           steps:
-            - run: pwd
-            - run: ls -al
-            - run: cd onlineboardgamesui 
+            - run: sudo apt-get install tree -y
+            - run: tree . -l 2
             - run: npm install
             - run: npm test
 workflows:
     build-and-test:
       jobs:
-        - build-and-test:
-          working_directory: ~/onlineboardgames
+        - build-and-test
