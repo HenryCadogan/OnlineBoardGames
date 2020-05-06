@@ -5,9 +5,10 @@ jobs:
   build-and-test:
     executor:
       name: node/default
-    working_directory: ~/onlineboardgamesui
+    working_directory: ~/onlineboardgames/onlineboardgamesui
     steps:
       - checkout
+        path: ~/onlineboardgames 
       - node/with-cache:
           steps:
             - run: npm install
