@@ -8,7 +8,6 @@ jobs:
     steps:
       - checkout
       - node/with-cache:
-          working_directory: ~/onlineboardgamesui
           steps:
             - run: sudo apt-get install tree -y
             - run: pwd
