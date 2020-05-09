@@ -1,26 +1,76 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+export enum Player {
+  None = 0,
+  One = 1,
+  Two = 2
+}
+
+interface State {
+  board: Player[]
+  turn: Player
+}
+
+class App extends React.Component<{}, State>{
+
+  public state = {
+    board: [Player.None, Player.None, Player.None, Player.None, Player.None, Player.None, Player.None, Player.None, Player.None],
+    turn: Player.One
+  }
+
+  public renderCell = (index: number) => {
+    return <div className="cell" onClick={this.setCell(index)}>
+      {this.getSymbolForPlayer(this.state.board[index])}
     </div>
-  );
+  }
+
+  private getSymbolForPlayer(player: Player) {
+    switch (player) {
+      case Player.One: return 'X'
+      case Player.Two: return 'O'
+      case Player.None: return ''
+    }
+  }
+
+  public setCell = (index: number) => () =>  {
+    if (this.isValidMove(index)) {
+      var currentBoard = this.state.board
+      currentBoard[index] = this.state.turn
+      this.setState({ board: currentBoard })
+      this.nextTurn()
+    }
+  }
+
+  private isValidMove(index: number) {
+    return this.state.board[index] === Player.None
+  }
+
+  private nextTurn = () => {
+    switch (this.state.turn) {
+      case Player.One: this.setState({ turn: Player.Two }); break;
+      case Player.Two: this.setState({ turn: Player.One }); break;
+      default: this.setState({ turn: Player.One })
+    }
+  }
+
+  public renderBoard = () => {
+    return <div className="board-container">
+      {this.state.board.map((value, key) => this.renderCell(key))}
+    </div>
+  }
+
+  public render() {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <p>Tic Tac Toe</p>
+        </header>
+        It is Player {this.state.turn}'s turn
+        {this.renderBoard()}
+      </div>
+    );
+  }
 }
 
 export default App;
