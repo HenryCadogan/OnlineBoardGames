@@ -16,7 +16,8 @@ class App extends React.Component<{}, State>{
 
   public state = {
     board: [Player.None, Player.None, Player.None, Player.None, Player.None, Player.None, Player.None, Player.None, Player.None],
-    turn: Player.One
+    turn: Player.One,
+    hasWon: null
   }
 
   public renderCell = (index: number) => {
@@ -33,7 +34,7 @@ class App extends React.Component<{}, State>{
     }
   }
 
-  public setCell = (index: number) => () =>  {
+  public setCell = (index: number) => () => {
     if (this.isValidMove(index)) {
       var currentBoard = this.state.board
       currentBoard[index] = this.state.turn
@@ -60,6 +61,13 @@ class App extends React.Component<{}, State>{
     </div>
   }
 
+  private resetGame = () => {
+    this.setState({
+      board: [Player.None, Player.None, Player.None, Player.None, Player.None, Player.None, Player.None, Player.None, Player.None],
+      turn: Player.One
+    })
+  }
+
   public render() {
     return (
       <div className="App">
@@ -68,6 +76,7 @@ class App extends React.Component<{}, State>{
         </header>
         It is Player {this.state.turn}'s turn
         {this.renderBoard()}
+        <button className="Reset" onClick={this.resetGame}/>
       </div>
     );
   }

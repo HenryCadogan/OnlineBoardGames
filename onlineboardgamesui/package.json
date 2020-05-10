@@ -40,9 +40,7 @@
     "@babel/core": "^7.9.6",
     "@babel/preset-env": "^7.9.6",
     "@babel/preset-typescript": "^7.9.0",
-    "babel-jest": "^26.0.1",
     "identity-obj-proxy": "^3.0.0",
-    "jest": "^26.0.1",
     "ts-jest": "^25.5.1"
   }
 }
