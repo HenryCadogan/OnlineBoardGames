@@ -63,3 +63,23 @@
   cursor: pointer;
   background: #61dafb;
 }
+
+.Reset{
+  width: 240;
+  height: 80;
+  background: rgb(231, 54, 54);
+  border-radius: 8px;
+  border: 2px solid rgb(231, 54, 54);
+}
+
+.Reset:hover{
+  cursor: pointer;
+  background: #fb6161;
+  box-shadow: 0 8px 12px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.Reset:active {
+  background-color: #fb6161;
+  box-shadow: 0 2px #666;
+  transform: translateY(2px);
+}

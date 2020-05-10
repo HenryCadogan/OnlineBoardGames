@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import { WinChecker } from './WinChecker';
 
 export enum Player {
   None = 0,
@@ -10,6 +11,7 @@ export enum Player {
 interface State {
   board: Player[]
   turn: Player
+  hasWon: Player
 }
 
 class App extends React.Component<{}, State>{
@@ -17,7 +19,7 @@ class App extends React.Component<{}, State>{
   public state = {
     board: [Player.None, Player.None, Player.None, Player.None, Player.None, Player.None, Player.None, Player.None, Player.None],
     turn: Player.One,
-    hasWon: null
+    hasWon: Player.None
   }
 
   public renderCell = (index: number) => {
@@ -39,12 +41,19 @@ class App extends React.Component<{}, State>{
       var currentBoard = this.state.board
       currentBoard[index] = this.state.turn
       this.setState({ board: currentBoard })
+      const winChecker = new WinChecker(currentBoard, this.state.turn)
+      if (winChecker.checkForWin(index)) {
+        this.setWinnerText(`Player ${this.state.turn} has Won!`)
+        this.setState({
+          hasWon: this.state.turn
+        })
+      }
       this.nextTurn()
     }
   }
 
   private isValidMove(index: number) {
-    return this.state.board[index] === Player.None
+    return this.state.board[index] === Player.None && this.state.hasWon === Player.None
   }
 
   private nextTurn = () => {
@@ -64,8 +73,15 @@ class App extends React.Component<{}, State>{
   private resetGame = () => {
     this.setState({
       board: [Player.None, Player.None, Player.None, Player.None, Player.None, Player.None, Player.None, Player.None, Player.None],
-      turn: Player.One
+      turn: Player.One,
+      hasWon: Player.None
     })
+    this.setWinnerText("")
+  }
+
+  private setWinnerText(text: string) {
+    var element: HTMLParagraphElement = (document.getElementsByClassName("Winner")[0] as HTMLParagraphElement)
+    element.textContent = text
   }
 
   public render() {
@@ -76,7 +92,10 @@ class App extends React.Component<{}, State>{
         </header>
         It is Player {this.state.turn}'s turn
         {this.renderBoard()}
-        <button className="Reset" onClick={this.resetGame}/>
+        <button className="Reset" onClick={this.resetGame}>Reset Game</button>
+        <div className="win-container">
+          <p className="Winner" />
+        </div>
       </div>
     );
   }
